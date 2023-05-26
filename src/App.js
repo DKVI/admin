@@ -1,23 +1,25 @@
-import logo from './logo.svg';
-import './App.css';
+/** @format */
 
+import { EditPage, Header, MyChart } from "./components";
+import React, { useEffect } from "react";
+import * as apis from "./apis";
+import { AddQuestions, Home, List } from "./pages";
+import { Routes, Route } from "react-router-dom";
+import AddPage from "./components/addPage";
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="w-screen h-screen overflow-hidden">
+      <div className="w-full h-[50px]">
+        <Header />
+      </div>
+      <div className="w-full h-full px-[10%]">
+        <Routes>
+          <Route path="" element={<Home />} />
+          <Route path="/home" element={<Home />} />
+          <Route path="/list" element={<List />} />
+          <Route path="/add" element={<AddPage />} />
+        </Routes>
+      </div>
     </div>
   );
 }
