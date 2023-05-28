@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import * as apis from "../apis";
 import { GET_QUESTIONS } from "../redux/actions";
 import { useDispatch } from "react-redux";
+import DeleteModal from "../components/deleteModal";
 const PopUp = ({ show, question, method }) => {
   const name = question.name;
   const dispatch = useDispatch();
@@ -14,9 +15,46 @@ const PopUp = ({ show, question, method }) => {
   const [answerC, setAnswerC] = useState(question.answers[2].content);
   const [answerD, setAnswerD] = useState(question.answers[3].content);
   const [correct, setCorrect] = useState(question.correct);
-
+  const [deleteModal, setDeleteModal] = useState(false);
   const [mode, setMode] = useState("read");
+  const handleDelete = () => {
+    setDeleteModal(!deleteModal);
+  };
   const handleClick = () => {
+    if (question === "") {
+      alert("Vui lòng nhập câu hỏi");
+      return;
+    }
+    if (answerA === "") {
+      alert("Vui lòng nhập câu trả lời A");
+      return;
+    }
+    if (answerB === "") {
+      alert("Vui lòng nhập câu trả lời B");
+      return;
+    }
+    if (answerC === "") {
+      alert("Vui lòng nhập câu trả lời C");
+      return;
+    }
+    if (answerD === "") {
+      alert("Vui lòng nhập câu trả lời D");
+      return;
+    }
+    if (correct === "") {
+      alert("Vui lòng nhập đáp án đúng");
+      return;
+    }
+    if (
+      correct !== "A" &&
+      correct !== "B" &&
+      correct !== "C" &&
+      correct !== "D"
+    ) {
+      console.log(correct);
+      alert("Đáp án đúng phải là A, B, C hoặc D");
+      return;
+    }
     console.log(question._id);
     const formData = {
       name: questions,
@@ -53,6 +91,8 @@ const PopUp = ({ show, question, method }) => {
       });
     postDetailQuestion();
     dispatch(GET_QUESTIONS);
+    alert("Cập nhật thông tin thành công!");
+    method(!show);
   };
   const activeMode =
     "px-[4px] read cursor-pointer flex bg-black text-white h-full";
@@ -64,6 +104,13 @@ const PopUp = ({ show, question, method }) => {
   return (
     <div className={show ? showItem : hideItem}>
       <div className="w-[50%] bg-white m-auto p-[20px] rounded-md shadow-2xl flex flex-col gap-4">
+        {deleteModal ? (
+          <DeleteModal
+            method1={setDeleteModal}
+            method2={method}
+            id={question._id}
+          />
+        ) : null}
         <div className="w-full flex justify-between">
           <div className="mode flex gap-1 border-black border-[4px] items-center rounded-lg ">
             <div
@@ -190,17 +237,30 @@ const PopUp = ({ show, question, method }) => {
           )}
         </div>
         {mode === "edit" ? (
-          <motion.div
-            onClick={handleClick}
-            className="w-full bg-black text-white p-[10px] flex cursor-pointer"
-            whileHover={{
-              color: "black",
-              backgroundColor: "#fff",
-              transition: { duration: 0.5 },
-            }}
-          >
-            <p className="m-auto"> SUBMIT </p>
-          </motion.div>
+          <div className="flex justify-between gap-4">
+            <motion.div
+              onClick={handleDelete}
+              className="w-1/2 bg-black text-white p-[10px] flex cursor-pointer"
+              whileHover={{
+                color: "black",
+                backgroundColor: "#fff",
+                transition: { duration: 0.5 },
+              }}
+            >
+              <p className="m-auto"> DELETE </p>
+            </motion.div>
+            <motion.div
+              onClick={handleClick}
+              className="w-1/2 bg-black text-white p-[10px] flex cursor-pointer"
+              whileHover={{
+                color: "black",
+                backgroundColor: "#fff",
+                transition: { duration: 0.5 },
+              }}
+            >
+              <p className="m-auto"> SUBMIT </p>
+            </motion.div>
+          </div>
         ) : null}
       </div>
     </div>

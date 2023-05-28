@@ -49,3 +49,26 @@ export const GET_USERS = async (dispatch) => {
     });
   }
 };
+
+export const GET_ADMIN = async (dispatch) => {
+  try {
+    const response = await apis.getAdmin();
+    console.log(response);
+    if (response.status === 201) {
+      dispatch({
+        type: "GET_ADMIN",
+        payload: response.data.admin[0],
+      });
+    } else {
+      dispatch({
+        type: "GET_ADMIN",
+        payload: [],
+      });
+    }
+  } catch (error) {
+    dispatch({
+      type: "GET_ADMIN",
+      payload: ["error"],
+    });
+  }
+};

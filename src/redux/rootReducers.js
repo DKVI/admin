@@ -3,6 +3,7 @@
 const initState = {
   users: [],
   questions: [],
+  admins: {},
 };
 
 const reducer = (state = initState, action) => {
@@ -11,6 +12,8 @@ const reducer = (state = initState, action) => {
       return { ...state, users: action.payload };
     case "GET_QUESTIONS":
       return { ...state, questions: action.payload };
+    case "GET_ADMIN":
+      return { ...state, admins: { ...action.payload } };
     default:
       return state;
   }

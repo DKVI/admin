@@ -25,7 +25,46 @@ const AddPage = () => {
     inputRefC.current.value = "";
     inputRefD.current.value = "";
     inputRefAnswer.current.value = "";
+    setQuestion("");
+    setAnswerA("");
+    setAnswerB("");
+    setAnswerC("");
+    setAnswerD("");
+    setCorrect("");
     inputRefQuestion.current.focus();
+    if (question === "") {
+      alert("Vui lòng nhập câu hỏi");
+      return;
+    }
+    if (answerA === "") {
+      alert("Vui lòng nhập câu trả lời A");
+      return;
+    }
+    if (answerB === "") {
+      alert("Vui lòng nhập câu trả lời B");
+      return;
+    }
+    if (answerC === "") {
+      alert("Vui lòng nhập câu trả lời C");
+      return;
+    }
+    if (answerD === "") {
+      alert("Vui lòng nhập câu trả lời D");
+      return;
+    }
+    if (correct === "") {
+      alert("Vui lòng nhập đáp án đúng");
+      return;
+    }
+    if (
+      correct !== "A" &&
+      correct !== "B" &&
+      correct !== "C" &&
+      correct !== "D"
+    ) {
+      alert("Đáp án đúng phải là A, B, C hoặc D");
+      return;
+    }
     const formData = {
       name: question,
       answers: [
@@ -58,84 +97,92 @@ const AddPage = () => {
       }
     };
     addQuestion(formData);
+    alert("Thêm câu hỏi thành công!");
   };
 
-  return (
-    <div className="w-full h-full flex">
-      <motion.div
-        animate={{
-          opacity: 1,
-          scale: 1,
-          y: 0,
-          transition: { duration: 0.5 },
-        }}
-        initial={{ opacity: 0, scale: 0.6, y: 200 }}
-        className="m-auto flex flex-col justify-between gap-[30px] w-[500px]"
-      >
-        <input
-          className="border p-[10px]"
-          placeholder="Nhập câu hỏi"
-          onChange={(e) => {
-            setQuestion(e.target.value);
-          }}
-          value={question}
-          ref={inputRefQuestion}
-        />
-        <input
-          className="border p-[10px]"
-          onChange={(e) => {
-            setAnswerA(e.target.value);
-          }}
-          placeholder="Nhập câu trả lời A"
-          value={answerA}
-          ref={inputRefA}
-        />
-        <input
-          className="border p-[10px]"
-          onChange={(e) => {
-            setAnswerB(e.target.value);
-          }}
-          placeholder="Nhập câu trả lời B"
-          value={answerB}
-          ref={inputRefB}
-        />
-        <input
-          className="border p-[10px]"
-          onChange={(e) => {
-            setAnswerC(e.target.value);
-          }}
-          placeholder="Nhập câu trả lời C"
-          value={answerC}
-          ref={inputRefC}
-        />
-        <input
-          className="border p-[10px]"
-          onChange={(e) => {
-            setAnswerD(e.target.value);
-          }}
-          placeholder="Nhập câu trả lời D"
-          value={answerD}
-          ref={inputRefD}
-        />
-        <input
-          className="border p-[10px]"
-          onChange={(e) => {
-            setCorrect(e.target.value);
-          }}
-          placeholder="Nhập đáp án đúng"
-          value={correct}
-          ref={inputRefAnswer}
-        />
-        <motion.button
-          className="bg-black text-white p-[10px]"
-          onClick={handleClick}
-          whileHover={{ scale: 1.1, transition: { duration: 0.2 } }}
-        >
-          Submit
-        </motion.button>
-      </motion.div>
-    </div>
-  );
+  {
+    if (sessionStorage.getItem("admin") !== null) {
+      return (
+        <div className="w-full h-full flex">
+          <motion.div
+            animate={{
+              opacity: 1,
+              scale: 1,
+              y: 0,
+              transition: { duration: 0.5 },
+            }}
+            initial={{ opacity: 0, scale: 0.6, y: 200 }}
+            className="m-auto flex flex-col justify-between gap-[20px] w-[500px]"
+          >
+            <input
+              className="border p-[10px]"
+              placeholder="Nhập câu hỏi"
+              onChange={(e) => {
+                setQuestion(e.target.value);
+              }}
+              value={question}
+              ref={inputRefQuestion}
+            />
+            <input
+              className="border p-[10px]"
+              onChange={(e) => {
+                setAnswerA(e.target.value);
+              }}
+              placeholder="Nhập câu trả lời A"
+              value={answerA}
+              ref={inputRefA}
+            />
+            <input
+              className="border p-[10px]"
+              onChange={(e) => {
+                setAnswerB(e.target.value);
+              }}
+              placeholder="Nhập câu trả lời B"
+              value={answerB}
+              ref={inputRefB}
+            />
+            <input
+              className="border p-[10px]"
+              onChange={(e) => {
+                setAnswerC(e.target.value);
+              }}
+              placeholder="Nhập câu trả lời C"
+              value={answerC}
+              ref={inputRefC}
+            />
+            <input
+              className="border p-[10px]"
+              onChange={(e) => {
+                setAnswerD(e.target.value);
+              }}
+              placeholder="Nhập câu trả lời D"
+              value={answerD}
+              ref={inputRefD}
+            />
+            <input
+              className="border p-[10px]"
+              onChange={(e) => {
+                setCorrect(e.target.value);
+              }}
+              placeholder="Nhập đáp án đúng"
+              value={correct}
+              ref={inputRefAnswer}
+            />
+            <motion.button
+              className="bg-black text-white p-[10px]"
+              onClick={handleClick}
+              whileHover={{ scale: 1.1, transition: { duration: 0.2 } }}
+            >
+              Submit
+            </motion.button>
+          </motion.div>
+        </div>
+      );
+    } else {
+      window.location.href = "/";
+      return null;
+    }
+  }
 };
 
 export default AddPage;
