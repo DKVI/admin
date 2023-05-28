@@ -14,7 +14,7 @@ const List = () => {
   useEffect(() => {
     dispatch(GET_QUESTIONS);
   }, []);
-  
+
   {
     if (sessionStorage.getItem("admin") !== null) {
       return (
@@ -42,7 +42,6 @@ const List = () => {
                     <div
                       onClick={() => {
                         setClick(!click);
-                        console.log(show);
                         setCurrentQuestion(item);
                       }}
                       key={index}

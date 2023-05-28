@@ -51,11 +51,9 @@ const PopUp = ({ show, question, method }) => {
       correct !== "C" &&
       correct !== "D"
     ) {
-      console.log(correct);
       alert("Đáp án đúng phải là A, B, C hoặc D");
       return;
     }
-    console.log(question._id);
     const formData = {
       name: questions,
       answers: [
@@ -78,13 +76,10 @@ const PopUp = ({ show, question, method }) => {
       ],
       correct: correct,
     };
-    console.log(formData);
     const postDetailQuestion = () =>
       new Promise(async (resolve, reject) => {
         const response = await apis.postDetailQuestion(question._id, formData);
-        console.log(response.status);
         if (response.status === 201) {
-          console.log(JSON.stringify(response.data));
           resolve(response);
         }
         reject(response);
