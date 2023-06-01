@@ -19,19 +19,6 @@ const AddPage = () => {
   const inputRefQuestion = useRef();
   const inputRefAnswer = useRef();
   const handleClick = () => {
-    inputRefQuestion.current.value = "";
-    inputRefA.current.value = "";
-    inputRefB.current.value = "";
-    inputRefC.current.value = "";
-    inputRefD.current.value = "";
-    inputRefAnswer.current.value = "";
-    setQuestion("");
-    setAnswerA("");
-    setAnswerB("");
-    setAnswerC("");
-    setAnswerD("");
-    setCorrect("");
-    inputRefQuestion.current.focus();
     if (question === "") {
       alert("Vui lòng nhập câu hỏi");
       return;
@@ -98,6 +85,19 @@ const AddPage = () => {
     };
     addQuestion(formData);
     alert("Thêm câu hỏi thành công!");
+    inputRefQuestion.current.value = "";
+    inputRefA.current.value = "";
+    inputRefB.current.value = "";
+    inputRefC.current.value = "";
+    inputRefD.current.value = "";
+    inputRefAnswer.current.value = "";
+    setQuestion("");
+    setAnswerA("");
+    setAnswerB("");
+    setAnswerC("");
+    setAnswerD("");
+    setCorrect("");
+    inputRefQuestion.current.focus();
   };
 
   {
